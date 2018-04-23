@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>テストページ</title>
+    </head>
+    <body>
+        こんにちは、{{name}}
+
+        <h1>お気に入りの画像たち</h1>
+        {% for fzbz in fizzbuzz %}
+        <IMG src="{{ fzbz }}">
+        {% endfor %}
+    </body>
+</html>
