@@ -21,18 +21,30 @@ api = tweepy.API(auth, wait_on_rate_limit=True)
 get_friends = api.friends
 get_tweet = api.user_timeline
 f = open('baypic.json', 'r')
+g = open('id.json', 'r')
 json_data = json.load(f)
+id_data = json.load(g)
 
 @route('/top')
 def top():
 
     print (datetime.datetime.today())
     url = json_data
+    dic = id_data
     for friend in tweepy.Cursor(get_friends, id = "").items():
+        value1 = 0
         c = friend.screen_name
         print(c)
+        if dic.has_key(c):
+            value = dic[c]
+        else:
+            value = 0
         for status in tweepy.Cursor(get_tweet, id=c).items():
             time.sleep(0.2)
+            if value1 == 0:
+                value1 = status.id
+            if status.id == value:
+                break
             if status.favorited == True:
                 try:
                     j = 0
@@ -49,10 +61,13 @@ def top():
                         break
                 except:
                     pass
+        dic[c] = value1
 
     fw = open('baypic.json', 'w')
+    gw = open('id.json', 'w')
     li_uniq = list(set(url))
     json.dump(li_uniq, fw, indent=4)
+    json.dump(dic, gw, indent=4)
     print len(li_uniq)
     print (datetime.datetime.today())
 
