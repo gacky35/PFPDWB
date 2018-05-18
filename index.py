@@ -31,7 +31,7 @@ def top():
     print (datetime.datetime.today())
     url = json_data
     dic = id_data
-    for friend in tweepy.Cursor(get_friends, id = "").items():
+    for friend in tweepy.Cursor(get_friends, id = "35_22_DeNA").items():
         value1 = 0
         c = friend.screen_name
         print(c)
@@ -40,7 +40,6 @@ def top():
         else:
             value = 0
         for status in tweepy.Cursor(get_tweet, id=c).items():
-            time.sleep(0.2)
             if value1 == 0:
                 value1 = status.id
             if status.id == value:
@@ -50,15 +49,10 @@ def top():
                     j = 0
                     k = 0
                     for i in status.extended_entities['media']:
-                        if i['media_url'] in url:
-                            k = k + 1
-                            break
-                        else:
+                        if "media" in i['media_url']:
                             url.append(i['media_url'])
                             print(i['media_url'])
                         j = j + 1
-                    if(k!=0):
-                        break
                 except:
                     pass
         dic[c] = value1
