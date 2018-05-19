@@ -9,7 +9,10 @@
 
         <h1>お気に入りの画像たち</h1>
         {% for fzbz in fizzbuzz %}
-        <IMG src="{{ fzbz }}">
+        <IMG src="{{ fzbz }}" 
+        style="width:450px;
+        height:450px;
+        object-fit: cover;">
         {% endfor %}
     </body>
 </html>
